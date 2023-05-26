@@ -5,7 +5,7 @@ import phestrix.Factory.factory.Factory;
 
 public class EngineSupplier extends Thread {
     public EngineSupplier(Factory factory, int priority) {
-        super(new Supplier<Engine>(factory, factory.getEngineStock(), Engine.class), "Factory/Supplier");
+        super(new Supplier<>(factory, factory.getEngineStock(), Engine.class), "Factory/Supplier");
         setPriority(priority);
     }
 }

@@ -27,7 +27,11 @@ public class IOFactory {
             while (reader.hasNext()) {
                 int event = reader.next();
                 if (event == XMLEvent.START_ELEMENT) {
-                    switch (reader.getLocalName()) {
+                    String forSwitch = reader.getLocalName();
+                    switch (forSwitch) {
+                        case "FactoryConfiguration" -> {
+                            continue;
+                        }
                         case "AccessorySupplierCount" ->
                                 accessorySupplierCount = Integer.parseInt(reader.getElementText());
                         case "WorkerCount" -> workerCount = Integer.parseInt(reader.getElementText());
@@ -50,9 +54,9 @@ public class IOFactory {
                 }
             }
             reader.close();
-            if (accessorySupplierCount != 1 || workerCount != -1 || dealerCount != -1 || supplierDelay != -1 ||
-                    workerDelay != -1 || dealerDelay != -1 || accessoryStockLimit != -1 || engineStockLimit != -1 ||
-                    bodyStockLimit != -1 || carStockLimit != -1 || !logBoolIsInitialized) {
+            if (accessorySupplierCount == 1 || workerCount == -1 || dealerCount == -1 || supplierDelay == -1 ||
+                    workerDelay == -1 || dealerDelay == -1 || accessoryStockLimit == -1 || engineStockLimit == -1 ||
+                    bodyStockLimit == -1 || carStockLimit == -1 || !logBoolIsInitialized) {
                 throw new IllegalArgumentException("Bad config");
             }
             return new Factory(accessoryStockLimit, accessorySupplierCount, workerCount, dealerCount, supplierDelay,
@@ -113,7 +117,7 @@ public class IOFactory {
             writer.writeCharacters("" + factory.getEngineStock().getLimit());
             writer.writeEndElement();
 
-            writer.writeStartElement("BodyworkStockLimit");
+            writer.writeStartElement("BodyStockLimit");
             writer.writeCharacters("" + factory.getBodyStock().getLimit());
             writer.writeEndElement();
 

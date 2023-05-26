@@ -5,8 +5,6 @@ import phestrix.Factory.factory.Factory;
 
 import java.util.ArrayList;
 
-import phestrix.ThreadPool.ThreadPool.TaskPool;
-
 public class WorkerSectionPool {
     private TaskPool pool;
     private ArrayList<Thread> workers;

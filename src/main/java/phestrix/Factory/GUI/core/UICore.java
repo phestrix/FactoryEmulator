@@ -34,14 +34,6 @@ public class UICore {
             UICore.factory.deinit(true);
 
         UICore.factory = factory;
-        setEventHandlers();
-
-        UIBundle.resetAll();
-        Product.resetID();
-        UIBundle.initDealerLogDataBundle(factory.getDealerCount());
-        uiThread = new UIThread(factory, controller);
-
-        uiThread.start();
         try
         {
             UICore.factory.init(Thread.MIN_PRIORITY);
@@ -49,9 +41,17 @@ public class UICore {
         {
             Dialogs.showExceptionDialog(controller.getRootStage(), e, "Can't initialize logging!");
         }
+        setEventHandlers();
+
+        UIBundle.resetAll();
+        Product.resetID();
+        UIBundle.initDealerLogDataBundle(factory.getDealerCount());
+        uiThread = new UIThread(factory, controller);
+        uiThread.start();
+
         setTimerEventHandler();
 
-        controller.clearFields();
+        //controller.clearFields();
         controller.setDealerCount(UICore.factory.getDealerCount());
         controller.setWorkerCount(UICore.factory.getWorkerCount());
         controller.setSupplierCount(UICore.factory.getAccessorySupplierCount());
@@ -69,7 +69,7 @@ public class UICore {
                                                          int accessoryStoreLimit, int engineStoreLimit, int bodyworkStoreLimit, int carStoreLimit, boolean loggingEnabled)
     {
         enableFactoryProcess(new Factory(accessorySupplierCount, producerCount, dealerCount, supplierDelay, producerDelay, dealerDelay,
-                accessoryStoreLimit, engineStoreLimit, bodyworkStoreLimit, carStoreLimit, loggingEnabled, "AppFactory-" + ProcessHandle.current().pid()));
+                accessoryStoreLimit, engineStoreLimit, bodyworkStoreLimit, carStoreLimit, loggingEnabled, "Factory Application-" + ProcessHandle.current().pid()));
     }
 
     public static synchronized void restartFactory()
@@ -93,7 +93,7 @@ public class UICore {
 
         uiThread.continueWork();
 
-        controller.clearFields();
+        //controller.clearFields();
         controller.setCBLogging(false);
         controller.setSDSliderVal(factory.getSupplierDelay().getValue());
         controller.setPDSliderVal(factory.getWorkerDelay().getValue());

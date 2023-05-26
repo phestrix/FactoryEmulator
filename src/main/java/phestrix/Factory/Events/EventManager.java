@@ -1,5 +1,7 @@
 package phestrix.Factory.Events;
 
+import phestrix.Util.Log;
+
 import java.util.HashMap;
 
 public class EventManager {
@@ -16,13 +18,13 @@ public class EventManager {
     private boolean enablePerformingEvents = true;
     private final HashMap<Long, EventHandler> eventHandlerHashMap;
 
+
     public EventManager() {
         eventHandlerHashMap = new HashMap<>();
     }
 
-
-
     public synchronized void setEventHandlerHashMap(Long ID, EventHandler eventHandler) {
+
         eventHandlerHashMap.put(ID, eventHandler);
     }
 
@@ -34,10 +36,6 @@ public class EventManager {
         if (eventHandlerHashMap.containsKey(ID) && enablePerformingEvents) {
             eventHandlerHashMap.get(ID).perform(object);
         }
-    }
-
-    public synchronized boolean isEnablePerformingEvents() {
-        return enablePerformingEvents;
     }
 
     public synchronized void disablePerformingEvents() {

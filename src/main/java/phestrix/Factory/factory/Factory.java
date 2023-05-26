@@ -294,20 +294,6 @@ public class Factory {
         eventManager.setEventHandlerHashMap(EventManager.CAR_MADE_EVENT, handler);
     }
 
-    public synchronized void setOnCarDelivered(EventHandler handler)
-    {
-        if(handler == null)
-            return;
-        eventManager.setEventHandlerHashMap(EventManager.CAR_SUPPLIED_TO_STORE_EVENT, handler);
-    }
-
-    public synchronized void setOnComponentSendFromStock(EventHandler handler)
-    {
-        if(handler == null)
-            return;
-        eventManager.setEventHandlerHashMap(EventManager.COMPONENT_SEND_FROM_STORE, handler);
-    }
-
     public synchronized void setOnCarSend(EventHandler handler)
     {
         if(handler == null)

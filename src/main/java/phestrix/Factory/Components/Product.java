@@ -1,15 +1,15 @@
 package phestrix.Factory.Components;
 
 public class Product {
-    private static int ID;
+    private static int Count;
     protected int uniqueID;
 
     public Product(int uniqueID) {
         this.uniqueID = uniqueID;
     }
 
-    public static synchronized int getID() {
-        return ID++;
+    public static synchronized int getCount() {
+        return Count++;
     }
 
     public synchronized int getUniqueID() {
@@ -17,6 +17,6 @@ public class Product {
     }
 
     public static synchronized void resetID() {
-        ID = 0;
+        Count = 0;
     }
 }

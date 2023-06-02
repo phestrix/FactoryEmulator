@@ -6,9 +6,9 @@ import phestrix.Factory.Components.Car;
 import phestrix.Factory.Components.Engine;
 import phestrix.Factory.Events.EventManager;
 
-
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
+
 
 public class Stock<T> {
     private final Queue<T> components;
@@ -20,6 +20,7 @@ public class Stock<T> {
         components = new ArrayBlockingQueue<>(limit);
         eventManager = manager;
         this.limit = limit;
+
     }
 
     private synchronized boolean isFull() {
@@ -49,7 +50,7 @@ public class Stock<T> {
         else if (object instanceof Engine)
             eventManager.fireEvent(EventManager.ENGINE_DELIVERED_EVENT, null);
         else if (object instanceof Body)
-            eventManager.fireEvent(EventManager.BODYWORK_DELIVERED_EVENT, null);
+            eventManager.fireEvent(EventManager.BODY_DELIVERED_EVENT, null);
         else if (object instanceof Car)
             eventManager.fireEvent(EventManager.CAR_SUPPLIED_TO_STORE_EVENT, object);
 

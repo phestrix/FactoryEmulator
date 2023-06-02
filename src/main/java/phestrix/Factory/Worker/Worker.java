@@ -28,10 +28,6 @@ public class Worker implements Runnable {
 
         while (!Thread.currentThread().isInterrupted()) {
             try {
-                synchronized (factory.getCarStock()) {
-                    factory.getCarStock().notifyAll();
-                }
-
                 tasks.getTask().getCarJob();
                 if (tasks.getTask().isDone()) {
                     tasks.removeTask();
@@ -43,16 +39,21 @@ public class Worker implements Runnable {
                 assertThreadInterrupted();
                 accessory = factory.getAccessoryStock().getComponent();
 
-                factory.getEventManager().fireEvent(EventManager.PRODUCER_STARTED_DO_JOB_EVENT, null);
+                factory.getEventManager().fireEvent(EventManager.WORKER_STARTED_LOB_EVENT, null);
                 if (delay.getValue() != 0) {
                     Thread.sleep(delay.getValue());
                 }
 
-                car = new Car(Product.getID(), engine, body, accessory);
+                car = new Car(Product.getCount(), engine, body, accessory);
+
+                synchronized (factory.getCarStock()) {
+                    factory.getCarStock().notifyAll();
+                }
+
                 factory.getCarStock().putComponent(car);
                 assertThreadInterrupted();
 
-                factory.getEventManager().fireEvent(EventManager.PRODUCER_DID_JOB_EVENT, null);
+                factory.getEventManager().fireEvent(EventManager.WORKERS_JOB_DONE, null);
                 factory.getEventManager().fireEvent(EventManager.CAR_MADE_EVENT, car);
             } catch (Throwable ignored) {
                 break;

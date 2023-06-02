@@ -284,7 +284,7 @@ public class Factory {
     {
         if(handler == null)
             return;
-        eventManager.setEventHandlerHashMap(EventManager.BODYWORK_DELIVERED_EVENT, handler);
+        eventManager.setEventHandlerHashMap(EventManager.BODY_DELIVERED_EVENT, handler);
     }
 
     public synchronized void setOnCarMade(EventHandler handler)
@@ -305,14 +305,14 @@ public class Factory {
     {
         if(handler == null)
             return;
-        eventManager.setEventHandlerHashMap(EventManager.PRODUCER_STARTED_DO_JOB_EVENT, handler);
+        eventManager.setEventHandlerHashMap(EventManager.WORKER_STARTED_LOB_EVENT, handler);
     }
 
     public synchronized void setOnWorkerDidJob(EventHandler handler)
     {
         if(handler == null)
             return;
-        eventManager.setEventHandlerHashMap(EventManager.PRODUCER_DID_JOB_EVENT, handler);
+        eventManager.setEventHandlerHashMap(EventManager.WORKERS_JOB_DONE, handler);
     }
 
     public synchronized void disableLogging(){

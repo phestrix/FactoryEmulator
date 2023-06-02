@@ -1,15 +1,13 @@
 package phestrix.Factory.Events;
 
-import phestrix.Util.Log;
-
 import java.util.HashMap;
 
 public class EventManager {
     public static final long ENGINE_DELIVERED_EVENT = 0;
     public static final long ACCESSORY_DELIVERED_EVENT = 1;
-    public static final long BODYWORK_DELIVERED_EVENT = 2;
-    public static final long PRODUCER_STARTED_DO_JOB_EVENT = 3;
-    public static final long PRODUCER_DID_JOB_EVENT = 4;
+    public static final long BODY_DELIVERED_EVENT = 2;
+    public static final long WORKER_STARTED_LOB_EVENT = 3;
+    public static final long WORKERS_JOB_DONE = 4;
     public static final long CAR_MADE_EVENT = 5;
     public static final long CAR_SUPPLIED_TO_STORE_EVENT = 6;
     public static final long CAR_SEND_EVENT = 7;

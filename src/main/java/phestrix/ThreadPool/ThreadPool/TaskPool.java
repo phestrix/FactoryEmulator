@@ -7,7 +7,8 @@ public class TaskPool {
     private final Queue<FactoryTask> tasks;
 
     public TaskPool() {
-        tasks = new LinkedBlockingQueue<>(5000);
+        int CAPACITY = 5000;
+        tasks = new LinkedBlockingQueue<>(CAPACITY);
     }
 
     public synchronized void pushTask(FactoryTask task) {

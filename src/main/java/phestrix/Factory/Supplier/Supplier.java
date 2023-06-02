@@ -26,7 +26,7 @@ public class Supplier<T extends Product> implements Runnable {
             try {
                 if (delay.getValue() != 0) {
                     Thread.sleep(delay.getValue());
-                    stock.putComponent(type.getConstructor(Integer.TYPE).newInstance(Product.getID()));
+                    stock.putComponent(type.getConstructor(Integer.TYPE).newInstance(Product.getCount()));
                     assertThreadInterrupted();
                 }
             } catch (Throwable ignored) {

@@ -4,10 +4,7 @@ import phestrix.Factory.Controller.CarStockController;
 import phestrix.Factory.Dealer.Dealer;
 import phestrix.Factory.Events.EventHandler;
 import phestrix.Factory.Events.EventManager;
-import phestrix.Factory.Stock.AccessoryStock;
-import phestrix.Factory.Stock.BodyStock;
-import phestrix.Factory.Stock.CarStock;
-import phestrix.Factory.Stock.EngineStock;
+import phestrix.Factory.Stock.*;
 import phestrix.Factory.Supplier.AccessorySupplier;
 import phestrix.Factory.Supplier.BodySupplier;
 import phestrix.Factory.Supplier.EngineSupplier;
@@ -209,13 +206,11 @@ public class Factory {
         startThreads();
     }
 
-    public synchronized void deinit(boolean destoyEventListeners) {
+    public synchronized void deInit(boolean destroyEventListeners) {
         if (!initialized) {
             return;
         }
-
         initialized = false;
-
         carStock = null;
         accessoryStock = null;
         bodyStock = null;
@@ -227,7 +222,7 @@ public class Factory {
         carStockController = null;
         sectionPool = null;
         threadPool = null;
-        if (destoyEventListeners) {
+        if (destroyEventListeners) {
             eventManager = null;
         }
         System.gc();
@@ -238,7 +233,7 @@ public class Factory {
         if (!initialized) {
             return;
         }
-        deinit(false);
+        deInit(false);
         if (threadPriority != -1) {
             this.threadPriority = threadPriority;
         }

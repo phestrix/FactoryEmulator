@@ -6,6 +6,8 @@ import phestrix.ThreadPool.ThreadPool.TaskPool;
 import phestrix.Util.Bundle;
 import phestrix.Factory.factory.Factory;
 
+import java.util.ArrayList;
+
 import static phestrix.ThreadPool.ThreadUtil.ThreadChecker.assertThreadInterrupted;
 
 public class Worker implements Runnable {
@@ -21,36 +23,35 @@ public class Worker implements Runnable {
 
     @Override
     public void run() {
-        Engine engine;
-        Body body;
-        Accessory accessory;
+        ArrayList<Product> components = new ArrayList<>();
         Car car;
 
         while (!Thread.currentThread().isInterrupted()) {
             try {
-                tasks.getTask().getCarJob();
-                if (tasks.getTask().isDone()) {
-                    tasks.removeTask();
+                for (var product : tasks.getTask().getListOfComponents()) {
+                    switch (product) {
+                        case "Engine" -> components.add(0, factory.getEngineStock().getComponent());
+                        case "Body" -> components.add(1, factory.getBodyStock().getComponent());
+                        case "Accessory" -> components.add(2, factory.getAccessoryStock().getComponent());
+                    }
                 }
-
-                engine = factory.getEngineStock().getComponent();
-                assertThreadInterrupted();
-                body = factory.getBodyStock().getComponent();
-                assertThreadInterrupted();
-                accessory = factory.getAccessoryStock().getComponent();
 
                 factory.getEventManager().fireEvent(EventManager.WORKER_STARTED_LOB_EVENT, null);
                 if (delay.getValue() != 0) {
                     Thread.sleep(delay.getValue());
                 }
 
-                car = new Car(Product.getCount(), engine, body, accessory);
+                car = new Car(Product.getCount(), (Engine) components.get(0), (Body) components.get(1), (Accessory) components.get(2));
 
-                synchronized (factory.getCarStock()) {
-                    factory.getCarStock().notifyAll();
+                tasks.getTask().getCarJob();
+                if (tasks.getTask().isDone()) {
+                    tasks.removeTask();
                 }
 
                 factory.getCarStock().putComponent(car);
+                synchronized (factory.getCarStock()) {
+                    factory.getCarStock().notifyAll();
+                }
                 assertThreadInterrupted();
 
                 factory.getEventManager().fireEvent(EventManager.WORKERS_JOB_DONE, null);

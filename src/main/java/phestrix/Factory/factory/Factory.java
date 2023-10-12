@@ -84,16 +84,8 @@ public class Factory {
         return initialized;
     }
 
-    public synchronized void setFactoryName(String set) {
-        name.setValue(set);
-    }
-
     public synchronized Bundle<Boolean> canPrintName() {
         return printName;
-    }
-
-    public synchronized void setPrintFactoryNameToLog(boolean set) {
-        printName.setValue(set);
     }
 
     public synchronized EventManager getEventManager() {

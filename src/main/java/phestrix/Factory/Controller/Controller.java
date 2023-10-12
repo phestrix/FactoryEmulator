@@ -33,9 +33,6 @@ public class Controller implements Runnable {
     public void run() {
         while (!Thread.currentThread().isInterrupted()) {
             try {
-                int deb1 = pool.getCountOfTasks();
-                int deb2 = getCountOfMissingCars();
-                int deb3 = deb2 - deb1;
                 if (pool.getCountOfTasks() < getCountOfMissingCars()) {
                     pool.pushTask(new FactoryTask(getCountOfMissingCars() - pool.getCountOfTasks(), listOfComponents));
                 } else {

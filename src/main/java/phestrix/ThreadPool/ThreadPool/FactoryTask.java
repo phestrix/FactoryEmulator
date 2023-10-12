@@ -22,14 +22,6 @@ public class FactoryTask {
         return listOfComponents;
     }
 
-    public synchronized int getNumberOfComponents() {
-        return listOfComponents.size();
-    }
-
-    public synchronized String getNameOfComponent() {
-        return listOfComponents.poll();
-    }
-
     public synchronized boolean isDone() {
         return countOfCars <= 0;
     }

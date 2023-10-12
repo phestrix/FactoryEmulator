@@ -12,7 +12,7 @@ import phestrix.Factory.GUI.core.UICore;
 
 import java.util.Objects;
 
-public class FactoryApp extends Application {
+public class FactoryApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader();

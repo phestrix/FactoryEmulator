@@ -1,10 +1,14 @@
 package phestrix.ThreadPool.ThreadPool;
 
+import java.util.concurrent.LinkedBlockingQueue;
+
 public class FactoryTask {
     private int countOfCars;
+    private final LinkedBlockingQueue<String> listOfComponents;
 
-    public FactoryTask(int countOfCars) {
+    public FactoryTask(int countOfCars, LinkedBlockingQueue<String> list) {
         this.countOfCars = countOfCars;
+        listOfComponents = list;
     }
 
     public synchronized void getCarJob() {
@@ -12,6 +16,18 @@ public class FactoryTask {
             return;
         }
         --countOfCars;
+    }
+
+    public LinkedBlockingQueue<String> getListOfComponents() {
+        return listOfComponents;
+    }
+
+    public synchronized int getNumberOfComponents() {
+        return listOfComponents.size();
+    }
+
+    public synchronized String getNameOfComponent() {
+        return listOfComponents.poll();
     }
 
     public synchronized boolean isDone() {

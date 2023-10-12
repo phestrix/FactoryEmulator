@@ -31,7 +31,7 @@ public class UICore {
     public static synchronized void enableFactoryProcess(Factory factory)
     {
         if(UICore.factory != null && UICore.factory.isInitialized())
-            UICore.factory.deinit(true);
+            UICore.factory.deInit(true);
 
         UICore.factory = factory;
         try
@@ -51,7 +51,7 @@ public class UICore {
 
         setTimerEventHandler();
 
-        //controller.clearFields();
+        controller.clearFields();
         controller.setDealerCount(UICore.factory.getDealerCount());
         controller.setWorkerCount(UICore.factory.getWorkerCount());
         controller.setSupplierCount(UICore.factory.getAccessorySupplierCount());
@@ -68,8 +68,8 @@ public class UICore {
     public static synchronized void enableFactoryProcess(int accessorySupplierCount, int producerCount, int dealerCount, int supplierDelay, int producerDelay, int dealerDelay,
                                                          int accessoryStoreLimit, int engineStoreLimit, int bodyworkStoreLimit, int carStoreLimit, boolean loggingEnabled)
     {
-        enableFactoryProcess(new Factory(accessorySupplierCount, producerCount, dealerCount, supplierDelay, producerDelay, dealerDelay,
-                accessoryStoreLimit, engineStoreLimit, bodyworkStoreLimit, carStoreLimit, loggingEnabled, "Factory Application-" + ProcessHandle.current().pid()));
+        enableFactoryProcess(new Factory(accessoryStoreLimit, accessorySupplierCount, producerCount, dealerCount, supplierDelay, producerDelay, dealerDelay,
+                 engineStoreLimit, bodyworkStoreLimit, carStoreLimit, loggingEnabled, "Factory Application-" + ProcessHandle.current().pid()));
     }
 
     public static synchronized void restartFactory()
@@ -93,7 +93,7 @@ public class UICore {
 
         uiThread.continueWork();
 
-        //controller.clearFields();
+        controller.clearFields();
         controller.setCBLogging(false);
         controller.setSDSliderVal(factory.getSupplierDelay().getValue());
         controller.setPDSliderVal(factory.getWorkerDelay().getValue());
@@ -124,7 +124,7 @@ public class UICore {
     {
         if(factory != null)
         {
-            factory.deinit(true);
+            factory.deInit(true);
             factory = null;
         }
         if(uiThread != null)
